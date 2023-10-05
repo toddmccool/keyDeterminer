@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chord Key Detector</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>
+      <h1>welcome to the Key Determiner....</h1>
+      Choose as many chords as you'd like <i>between 1-6</i>,
+      <i>the order doesn't matter</i><br />and for <b>dom 7</b> chords just
+      select the corresponding note name, <i> i.e. choose <b>E</b> for E7</i
+      ><br />
+      <!-- Dropdowns for chords input -->
+      <select id="chord1">
+        <option value="">Select a chord...</option>
+      </select>
+      <select id="chord2">
+        <option value="">Select a chord...</option>
+      </select>
+      <select id="chord3">
+        <option value="">Select a chord...</option>
+      </select>
+      <select id="chord4">
+        <option value="">Select a chord...</option>
+      </select>
+      <select id="chord5">
+        <option value="">Select a chord...</option>
+      </select>
+      <select id="chord6">
+        <option value="">Select a chord...</option>
+      </select>
+
+      <button onclick="findKey()">Find Key</button>
+      <p id="result"></p>
+
+      <script>
+        const majorKeys = {
+          "C Major": ["C", "Dm", "Em", "F", "G", "Am"],
+          "C# Major": ["C#", "D#m", "E#m", "F#", "G#", "A#m"],
+          "D Major": ["D", "Em", "F#m", "G", "A", "Bm"],
+          "Eb Major": ["Eb", "Fm", "Gm", "Ab", "Bb", "Cm"],
+          "E Major": ["E", "F#m", "G#m", "A", "B", "C#m"],
+          "F Major": ["F", "Gm", "Am", "Bb", "C", "Dm"],
+          "F# Major": ["F#", "G#m", "A#m", "B", "C#", "D#m"],
+          "G Major": ["G", "Am", "Bm", "C", "D", "Em"],
+          "Ab Major": ["Ab", "Bbm", "Cm", "Db", "Eb", "Fm"],
+          "A Major": ["A", "Bm", "C#m", "D", "E", "F#m"],
+          "Bb Major": ["Bb", "Cm", "Dm", "Eb", "F", "Gm"],
+          "B Major": ["B", "C#m", "D#m", "E", "F#", "G#m"],
+        };
+
+        const minorKeys = {
+          "A Minor": ["Am", "Bm7b5", "C", "Dm", "E", "F"],
+          "A# Minor": ["A#m", "Cm7b5", "C#", "D#m", "F", "F#"],
+          "B Minor": ["Bm", "C#m7b5", "D", "Em", "F#", "G"],
+          "C Minor": ["Cm", "Dm7b5", "Eb", "Fm", "G", "Ab"],
+          "C# Minor": ["C#m", "D#m7b5", "E", "F#m", "G#", "A"],
+          "D Minor": ["Dm", "Em7b5", "F", "Gm", "A", "Bb"],
+          "D# Minor": ["D#m", "Fm7b5", "F#", "G#m", "A#", "B"],
+          "E Minor": ["Em", "F#m7b5", "G", "Am", "B", "C"],
+          "F Minor": ["Fm", "Gm7b5", "Ab", "Bbm", "C", "Db"],
+          "F# Minor": ["F#m", "G#m7b5", "A", "Bm", "C#", "D"],
+          "G Minor": ["Gm", "Am7b5", "Bb", "Cm", "D", "Eb"],
+          "G# Minor": ["G#m", "A#m7b5", "B", "C#m", "D#", "E"],
+        };
+
+        const allKeys = { ...majorKeys, ...minorKeys };
+
+        const rootNotes = [
+          "A",
+          "A#",
+          "Bb",
+          "B",
+          "C",
+          "C#",
+          "Db",
+          "D",
+          "D#",
+          "Eb",
+          "E",
+          "F",
+          "F#",
+          "Gb",
+          "G",
+          "G#",
+          "Ab",
+        ];
+        const chordQualities = ["", "m", "7", "m7b5"];
+
+        const chordDropdowns = [
+          "chord1",
+          "chord2",
+          "chord3",
+          "chord4",
+          "chord5",
+          "chord6",
+        ];
+
+        chordDropdowns.forEach((dropdownId) => {
+          const dropdown = document.getElementById(dropdownId);
+          rootNotes.forEach((root) => {
+            chordQualities.forEach((quality) => {
+              const chord = root + quality;
+              let existsInSomeKey = false;
+              for (let key in allKeys) {
+                if (allKeys[key].includes(chord)) {
+                  existsInSomeKey = true;
+                  break;
+                }
+              }
+              if (existsInSomeKey) {
+                const option = document.createElement("option");
+                option.value = chord;
+                option.textContent = chord;
+                dropdown.appendChild(option);
+              }
+            });
+          });
+        });
+
+        function findKey() {
+          const chords = chordDropdowns
+            .map((dropdownId) => document.getElementById(dropdownId).value)
+            .filter((chord) => chord !== "");
+
+          let matchedKeys = [];
+
+          for (let key in allKeys) {
+            if (chords.every((chord) => allKeys[key].includes(chord))) {
+              matchedKeys.push(key);
+            }
+          }
+
+          if (matchedKeys.length === 0) {
+            document.getElementById("result").innerText =
+              "No matching key found!";
+            return;
+          } else if (matchedKeys.length > 1) {
+            let multiKeyMessage = `The provided chords can belong to multiple keys: \n`;
+            matchedKeys.forEach((mKey) => {
+              multiKeyMessage += `${mKey}: ${allKeys[mKey].join(", ")}\n`;
+            });
+            multiKeyMessage +=
+              "Play around with the chords in these keys to see which set fits best.";
+            document.getElementById("result").innerText = multiKeyMessage;
+            return;
+          }
+
+          let key = matchedKeys[0];
+          let displayMessage = `Key: ${key}.<br><br>Chords in this key:<br>${allKeys[
+            key
+          ].join(
+            ", "
+          )}<br><br>To learn how to use these chords and hear them in progressions, check out <a href="https://toddmccool.github.io/chordprog124/index.html#basicApp" target="_blank">this website</a>.`;
+          document.getElementById("result").innerHTML = displayMessage;
+        }
+      </script>
+    </h2>
+  </body>
+</html>
