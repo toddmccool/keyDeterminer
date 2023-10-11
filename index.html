@@ -1,293 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chord Key Detector</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
 
-        .chord-column {
-            display: inline-block;
-            margin-right: 10px;
-        }
+      .chord-column {
+        display: inline-block;
+        margin-right: 10px;
+      }
 
-        button {
-            display: block;
-            margin-bottom: 5px;
-        }
-      
+      button {
+        display: block;
+        margin-bottom: 5px;
+      }
+
       #determineKeyBtn {
-    display: block;
-    margin: 20px auto;
-}
+        display: block;
+        margin: 20px auto;
+      }
 
       #undoButton {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-Select between 3 and 6 of the Chords of your song that occur the most <br><br>
-  
-    <!-- Chord Columns for A, Bb, B, C, D, E, F, G -->
-    <div class="chord-column">
-        <button onclick="addChord('A')">A<br>or A/C#</button>
-        <button onclick="addChord('Am')">Am</button>
-        <button onclick="addChord('A7')">A7</button>
-        <button onclick="addChord('Adim')">Adim</button>
-    </div>
+  <body>
+    Select between 3 and 6 of the Chords of your song that occur the most
+    <br /><br />
 
     <div class="chord-column">
-        <button onclick="addChord('Bb')">Bb<br>or Bb/D</button>
-        <button onclick="addChord('Bbm')">Bbm</button>
-        <button onclick="addChord('Bb7')">Bb7</button>
-        <button onclick="addChord('Bbdim')">Bbdim</button>
+      <button onclick="addChord('A')">A<br />or A/C#</button>
+      <button onclick="addChord('Am')">Am</button>
+      <button onclick="addChord('A7')">A7</button>
+      <button onclick="addChord('Adim')">Adim</button>
     </div>
 
     <div class="chord-column">
-        <button onclick="addChord('B')">B<br>or B/Db</button>
-        <button onclick="addChord('Bm')">Bm</button>
-        <button onclick="addChord('B7')">B7</button>
-        <button onclick="addChord('Bdim')">Bdim</button>
+      <button onclick="addChord('Bb')">Bb<br />or Bb/D</button>
+      <button onclick="addChord('Bbm')">Bbm</button>
+      <button onclick="addChord('Bb7')">Bb7</button>
+      <button onclick="addChord('Bbdim')">Bbdim</button>
     </div>
 
     <div class="chord-column">
-        <button onclick="addChord('C')">C<br>or C/E</button>
-        <button onclick="addChord('Cm')">Cm</button>
-        <button onclick="addChord('C7')">C7</button>
-        <button onclick="addChord('Cdim')">Cdim</button>
-    </div>
- <div class="chord-column">
-        <button onclick="addChord('C#')">C#<br>or C#/F</button>
-        <button onclick="addChord('C#m')">C#m</button>
-        <button onclick="addChord('C#7')">C#7</button>
-        <button onclick="addChord('C#dim')">C#dim</button>
-    </div>
-
-
-   <div class="chord-column">
-        <button onclick="addChord('Db')">Db<br>or Db/F</button>
-        <button onclick="addChord('Dbm')">Dbm</button>
-        <button onclick="addChord('Db7')">Db7</button>
-        <button onclick="addChord('Dbdim')">Dbdim</button>
-    </div>
-  
-    <div class="chord-column">
-        <button onclick="addChord('D')">D<br>or D/F#</button>
-        <button onclick="addChord('Dm')">Dm</button>
-        <button onclick="addChord('D7')">D7</button>
-        <button onclick="addChord('Ddim')">Ddim</button>
-    </div>
-
-  <div class="chord-column">
-    <button onclick="addChord('D#')">D#<br>or D#/G</button>
-    <button onclick="addChord('D#m')">D#m</button>
-    <button onclick="addChord('D#7')">D#7</button>
-    <button onclick="addChord('D#dim')">D#dim</button>
-</div>
-
-    <div class="chord-column">
-        <button onclick="addChord('Eb')">Eb<br>or Eb/G</button>
-        <button onclick="addChord('Ebm')">Ebm</button>
-        <button onclick="addChord('Eb7')">Eb7</button>
-        <button onclick="addChord('Ebdim')">Ebdim</button>
+      <button onclick="addChord('B')">B<br />or B/Db</button>
+      <button onclick="addChord('Bm')">Bm</button>
+      <button onclick="addChord('B7')">B7</button>
+      <button onclick="addChord('Bdim')">Bdim</button>
     </div>
 
     <div class="chord-column">
-        <button onclick="addChord('E')">E<br>or E/G#</button>
-        <button onclick="addChord('Em')">Em</button>
-        <button onclick="addChord('E7')">E7</button>
-        <button onclick="addChord('Edim')">Edim</button>
+      <button onclick="addChord('C')">C<br />or C/E</button>
+      <button onclick="addChord('Cm')">Cm</button>
+      <button onclick="addChord('C7')">C7</button>
+      <button onclick="addChord('Cdim')">Cdim</button>
+    </div>
+    <div class="chord-column">
+      <button onclick="addChord('C#')">C#<br />or C#/F</button>
+      <button onclick="addChord('C#m')">C#m</button>
+      <button onclick="addChord('C#7')">C#7</button>
+      <button onclick="addChord('C#dim')">C#dim</button>
     </div>
 
     <div class="chord-column">
-        <button onclick="addChord('F')">F<br>or F/A</button>
-        <button onclick="addChord('Fm')">Fm</button>
-        <button onclick="addChord('F7')">F7</button>
-        <button onclick="addChord('Fdim')">Fdim</button>
-    </div>
-
-  <div class="chord-column">
-        <button onclick="addChord('Gb')">Gb<br>or Gb/Bb</button>
-        <button onclick="addChord('Gbm')">Gbm</button>
-        <button onclick="addChord('Gb7')">Gb7</button>
-        <button onclick="addChord('Gbdim')">Gbdim</button>
-    </div>
-  
-    <div class="chord-column">
-        <button onclick="addChord('F#')">F#<br>or F#/Bb</button>
-        <button onclick="addChord('F#m')">F#m</button>
-        <button onclick="addChord('F#7')">F#7</button>
-        <button onclick="addChord('F#dim')">F#dim</button>
+      <button onclick="addChord('Db')">Db<br />or Db/F</button>
+      <button onclick="addChord('Dbm')">Dbm</button>
+      <button onclick="addChord('Db7')">Db7</button>
+      <button onclick="addChord('Dbdim')">Dbdim</button>
     </div>
 
     <div class="chord-column">
-        <button onclick="addChord('G')">G<br>or G/B</button>
-        <button onclick="addChord('Gm')">Gm</button>
-        <button onclick="addChord('G7')">G7</button>
-        <button onclick="addChord('Gdim')">Gdim</button>
-      </div>
-      
-          <!-- Chord Columns for Ab, Db, Eb, Gb -->
-    <div class="chord-column">
-        <button onclick="addChord('Ab')">Ab<br>or Ab/C</button>
-        <button onclick="addChord('Abm')">Abm</button>
-        <button onclick="addChord('Ab7')">Ab7</button>
-        <button onclick="addChord('Abdim')">Abdim</button>
+      <button onclick="addChord('D')">D<br />or D/F#</button>
+      <button onclick="addChord('Dm')">Dm</button>
+      <button onclick="addChord('D7')">D7</button>
+      <button onclick="addChord('Ddim')">Ddim</button>
     </div>
 
-   
+    <div class="chord-column">
+      <button onclick="addChord('D#')">D#<br />or D#/G</button>
+      <button onclick="addChord('D#m')">D#m</button>
+      <button onclick="addChord('D#7')">D#7</button>
+      <button onclick="addChord('D#dim')">D#dim</button>
+    </div>
 
-    
+    <div class="chord-column">
+      <button onclick="addChord('Eb')">Eb<br />or Eb/G</button>
+      <button onclick="addChord('Ebm')">Ebm</button>
+      <button onclick="addChord('Eb7')">Eb7</button>
+      <button onclick="addChord('Ebdim')">Ebdim</button>
+    </div>
 
+    <div class="chord-column">
+      <button onclick="addChord('E')">E<br />or E/G#</button>
+      <button onclick="addChord('Em')">Em</button>
+      <button onclick="addChord('E7')">E7</button>
+      <button onclick="addChord('Edim')">Edim</button>
+    </div>
+
+    <div class="chord-column">
+      <button onclick="addChord('F')">F<br />or F/A</button>
+      <button onclick="addChord('Fm')">Fm</button>
+      <button onclick="addChord('F7')">F7</button>
+      <button onclick="addChord('Fdim')">Fdim</button>
+    </div>
+
+    <div class="chord-column">
+      <button onclick="addChord('Gb')">Gb<br />or Gb/Bb</button>
+      <button onclick="addChord('Gbm')">Gbm</button>
+      <button onclick="addChord('Gb7')">Gb7</button>
+      <button onclick="addChord('Gbdim')">Gbdim</button>
+    </div>
+
+    <div class="chord-column">
+      <button onclick="addChord('F#')">F#<br />or F#/Bb</button>
+      <button onclick="addChord('F#m')">F#m</button>
+      <button onclick="addChord('F#7')">F#7</button>
+      <button onclick="addChord('F#dim')">F#dim</button>
+    </div>
+
+    <div class="chord-column">
+      <button onclick="addChord('G')">G<br />or G/B</button>
+      <button onclick="addChord('Gm')">Gm</button>
+      <button onclick="addChord('G7')">G7</button>
+      <button onclick="addChord('Gdim')">Gdim</button>
+    </div>
+
+    <div class="chord-column">
+      <button onclick="addChord('Ab')">Ab<br />or Ab/C</button>
+      <button onclick="addChord('Abm')">Abm</button>
+      <button onclick="addChord('Ab7')">Ab7</button>
+      <button onclick="addChord('Abdim')">Abdim</button>
     </div>
 
     <div id="selectedChords"></div>
-    
-  
-  <button id="determineKeyBtn" onclick="checkKey()">Determine Key</button>
-  
-  <button id="undoButton" onclick="undoLastSelection()">UNDO Last Selection</button>
+    <button id="determineKeyBtn" onclick="checkKey()">Determine Key</button>
 
-
-  
+    <button id="undoButton" onclick="undoLastSelection()">
+      UNDO Last Selection
+    </button>
     <div id="result"></div>
 
     <script>
-      
-let selectedChords = [];
+      let selectedChords = [];
 
       function undoLastSelection() {
-    if (selectedChords.length) {
-        selectedChords.pop();
-        document.getElementById('selectedChords').textContent = selectedChords.join(', ');
-    }
-}
+        if (selectedChords.length) {
+          selectedChords.pop();
+          document.getElementById("selectedChords").textContent =
+            selectedChords.join(", ");
+        }
+      }
 
       function addChord(chord) {
-    // Check if the chord is already in the array
-    const index = selectedChords.indexOf(chord);
-    if (index === -1) {
-        // If it's not in the array, add it
-        selectedChords.push(chord);
-    } else {
-        // If it's in the array, remove it
-        selectedChords.splice(index, 1);
-    }
-    document.getElementById('selectedChords').textContent = selectedChords.join(', ');
-}
-
-        
-
-        function checkKey() {
-            const keys = {
-    'C Major': ['C', 'Dm', 'Em', 'F', 'G', 'Am', 'Bdim'],
-    'D Major': ['D', 'Em', 'F#m', 'G', 'A', 'Bm', 'C#dim'],
-    'E Major': ['E', 'F#m', 'G#m', 'A', 'B', 'C#m', 'D#dim'],
-    'F Major': ['F', 'Gm', 'Am', 'Bb', 'C', 'Dm', 'Edim'],
-    'G Major': ['G', 'Am', 'Bm', 'C', 'D', 'Em', 'F#dim'],
-    'A Major': ['A', 'Bm', 'C#m', 'D', 'E', 'F#m', 'G#dim'],
-    'Bb Major': ['Bb', 'Cm', 'Dm', 'Eb', 'F', 'Gm', 'Adim'],
-    'B Major': ['B', 'C#m', 'D#m', 'E', 'F#', 'G#m', 'A#dim'],
-    'Db Major': ['Db', 'Ebm', 'Fm', 'Gb', 'Ab', 'Bbm', 'Cdim'],
-    'Eb Major': ['Eb', 'Fm', 'Gm', 'Ab', 'Bb', 'Cm', 'Ddim'],
-    'Gb Major': ['Gb', 'Abm', 'Bbm', 'Cb', 'Db', 'Ebm', 'Fdim'],
-    'Ab Major': ['Ab', 'Bbm', 'Cm', 'Db', 'Eb', 'Fm', 'Gdim'],
-};
-
-          
-          const enharmonicMapping = {
-    'F#': 'Gb',
-    'F#m': 'Gbm',
-    'F#7': 'Gb7',
-    'F#dim': 'Gbdim',
-    'Gb': 'F#',
-    'Gbm': 'F#m',
-    'Gb7': 'F#7',
-    'Gbdim': 'F#dim',
-    
-    'C#': 'Db',
-    'C#m': 'Dbm',
-    'C#7': 'Db7',
-    'C#dim': 'Dbdim',
-    'Db': 'C#',
-    'Dbm': 'C#m',
-    'Db7': 'C#7',
-    'Dbdim': 'C#dim',
-
-    'D#': 'Eb',
-    'D#m': 'Ebm',
-    'D#7': 'Eb7',
-    'D#dim': 'Ebdim',
-    'Eb': 'D#',
-    'Ebm': 'D#m',
-    'Eb7': 'D#7',
-    'Ebdim': 'D#dim',
-
-    'A#': 'Bb',
-    'A#m': 'Bbm',
-    'A#7': 'Bb7',
-    'A#dim': 'Bbdim',
-    'Bb': 'A#',
-    'Bbm': 'A#m',
-    'Bb7': 'A#7',
-    'Bbdim': 'A#dim',
-
-    'G#': 'Ab',
-    'G#m': 'Abm',
-    'G#7': 'Ab7',
-    'G#dim': 'Abdim',
-    'Ab': 'G#',
-    'Abm': 'G#m',
-    'Ab7': 'G#7',
-    'Abdim': 'G#dim'
-};
-
-
-          const matchedKeys = [];
-        
-        // Map selected chords to their enharmonic equivalents
-        let enhancedChords = selectedChords.map(chord => enharmonicMapping[chord] || chord);
-
-        let majorChords = selectedChords.map(chord => chord.endsWith('7') ? chord.slice(0, -1) : chord);
-    
-          
-          
-   for (const key in keys) {
-        // Check using majorChords for compatibility
-        if (majorChords.every(chord => keys[key].includes(chord))) {
-            matchedKeys.push(key);
+        console.log("Chord Added: " + chord);
+        const index = selectedChords.indexOf(chord);
+        if (index === -1) {
+          selectedChords.push(chord);
+        } else {
+          selectedChords.splice(index, 1);
         }
-    }
+        document.getElementById("selectedChords").textContent =
+          selectedChords.join(", ");
+      }
 
-  if (matchedKeys.length === 1) {
-    document.getElementById('result').textContent = "Key: " + matchedKeys[0];
-    // Reset selected chords for the next check.
-    selectedChords = [];
-    document.getElementById('selectedChords').textContent = '';
-} else if (matchedKeys.length > 1) {
-    document.getElementById('result').textContent = "Possible Keys: " + matchedKeys.join(', ');
-    document.getElementById('result').textContent += ". Add another chord to narrow it down.";
-    // DO NOT reset selected chords if there are multiple possible keys
-} else {
-    document.getElementById('result').textContent = "No matching key found!";
-    // Reset selected chords for the next check.
-    selectedChords = [];
-    document.getElementById('selectedChords').textContent = '';
-}
+      function checkKey() {
+        console.log("Checking Key...");
+        const keys = {
+          "C Major": ["C", "Dm", "Em", "E", "E7", "F", "G", "G7", "Am", "Bdim"],
+          "D Major": [
+            "D",
+            "Em",
+            "F#m",
+            "F#",
+            "F#7",
+            "G",
+            "A",
+            "A7",
+            "Bm",
+            "C#dim",
+          ],
+          "E Major": [
+            "E",
+            "F#m",
+            "G#m",
+            "G#",
+            "G#7",
+            "A",
+            "B",
+            "B7",
+            "C#m",
+            "D#dim",
+          ],
+          "F Major": [
+            "F",
+            "Gm",
+            "Am",
+            "A",
+            "A7",
+            "Bb",
+            "C",
+            "C7",
+            "Dm",
+            "Edim",
+          ],
+          "G Major": [
+            "G",
+            "Am",
+            "Bm",
+            "B",
+            "B7",
+            "C",
+            "D",
+            "D7",
+            "Em",
+            "F#dim",
+          ],
+          "A Major": [
+            "A",
+            "Bm",
+            "C#m",
+            "C#",
+            "C#7",
+            "D",
+            "E",
+            "E7",
+            "F#m",
+            "G#dim",
+          ],
+          "B Major": [
+            "B",
+            "C#m",
+            "D#m",
+            "D#",
+            "D#7",
+            "E",
+            "F#",
+            "F#7",
+            "G#m",
+            "A#dim",
+          ],
+          "Bb Major": [
+            "Bb",
+            "Cm",
+            "Dm",
+            "D",
+            "D7",
+            "Eb",
+            "F",
+            "F7",
+            "Gm",
+            "Adim",
+          ],
+          "Db Major": [
+            "Db",
+            "Ebm",
+            "Fm",
+            "F",
+            "F7",
+            "Gb",
+            "Ab",
+            "Ab7",
+            "Bbm",
+            "Cdim",
+          ],
+          "Eb Major": [
+            "Eb",
+            "Fm",
+            "Gm",
+            "G",
+            "G7",
+            "Ab",
+            "Bb",
+            "Bb7",
+            "Cm",
+            "Ddim",
+          ],
+          "Gb Major": [
+            "Gb",
+            "Abm",
+            "Bbm",
+            "Bb",
+            "Bb7",
+            "Cb",
+            "Db",
+            "Db7",
+            "Ebm",
+            "Fdim",
+          ],
+          "Ab Major": [
+            "Ab",
+            "Bbm",
+            "Cm",
+            "C",
+            "C7",
+            "Db",
+            "Eb",
+            "Eb7",
+            "Fm",
+            "Gdim",
+          ],
+        };
+        const chordMap = {
+          "C Major": {
+            I: "C",
+            ii: "Dm",
+            iii: "Em",
+            III: ["E", "E7"],
+            IV: "F",
+            V: ["G", "G7"],
+            vi: "Am",
+            vii: "Bdim",
+          },
+          "D Major": {
+            I: "D",
+            ii: "Em",
+            iii: "F#m",
+            III: ["F#", "F#7"],
+            IV: "G",
+            V: ["A", "A7"],
+            vi: "Bm",
+            vii: "C#dim",
+          },
+          "E Major": {
+            I: "E",
+            ii: "F#m",
+            iii: "G#m",
+            III: ["G#", "G#7"],
+            IV: "A",
+            V: ["B", "B7"],
+            vi: "C#m",
+            vii: "D#dim",
+          },
+          "F Major": {
+            I: "F",
+            ii: "Gm",
+            iii: "Am",
+            III: ["A", "A7"],
+            IV: "Bb",
+            V: ["C", "C7"],
+            vi: "Dm",
+            vii: "Edim",
+          },
+          "G Major": {
+            I: "G",
+            ii: "Am",
+            iii: "Bm",
+            III: ["B", "B7"],
+            IV: "C",
+            V: ["D", "D7"],
+            vi: "Em",
+            vii: "F#dim",
+          },
+          "A Major": {
+            I: "A",
+            ii: "Bm",
+            iii: "C#m",
+            III: ["C#", "C#7"],
+            IV: "D",
+            V: ["E", "E7"],
+            vi: "F#m",
+            vii: "G#dim",
+          },
+          "B Major": {
+            I: "B",
+            ii: "C#m",
+            iii: "D#m",
+            III: ["D#", "D#7"],
+            IV: "E",
+            V: ["F#", "F#7"],
+            vi: "G#m",
+            vii: "A#dim",
+          },
+          "Bb Major": {
+            I: "Bb",
+            ii: "Cm",
+            iii: "Dm",
+            III: ["D", "D7"],
+            IV: "Eb",
+            V: ["F", "F7"],
+            vi: "Gm",
+            vii: "Adim",
+          },
+          "Db Major": {
+            I: "Db",
+            ii: "Ebm",
+            iii: "Fm",
+            III: ["F", "F7"],
+            IV: "Gb",
+            V: ["Ab", "Ab7"],
+            vi: "Bbm",
+            vii: "Cdim",
+          },
+          "Eb Major": {
+            I: "Eb",
+            ii: "Fm",
+            iii: "Gm",
+            III: ["G", "G7"],
+            IV: "Ab",
+            V: ["Bb", "Bb7"],
+            vi: "Cm",
+            vii: "Ddim",
+          },
+          "Gb Major": {
+            I: "Gb",
+            ii: "Abm",
+            iii: "Bbm",
+            III: ["Bb", "Bb7"],
+            IV: "Cb",
+            V: ["Db", "Db7"],
+            vi: "Ebm",
+            vii: "Fdim",
+          },
+          "Ab Major": {
+            I: "Ab",
+            ii: "Bbm",
+            iii: "Cm",
+            III: ["C", "C7"],
+            IV: "Db",
+            V: ["Eb", "Eb7"],
+            vi: "Fm",
+            vii: "Gdim",
+          },
+        };
+
+        function testFunction() {
+          alert("Test function works!");
         }
-</script>
 
-</body>
+        let possibleKeys = [];
 
+        for (const key in keys) {
+          if (selectedChords.every((chord) => keys[key].includes(chord))) {
+            possibleKeys.push(key);
+          }
+        }
+
+        if (possibleKeys.length === 1) {
+          let key = possibleKeys[0];
+          let resultText =
+            "Key: " +
+            key +
+            ". <br>Chords in this key are: " +
+            Object.values(chordMap[key]).join(", ") +
+            ".";
+          if (
+            (selectedChords.includes(chordMap[key].III[0]) ||
+              selectedChords.includes(chordMap[key].III[1])) &&
+            !selectedChords.includes(key.split(" ")[0] + "7")
+          ) {
+            resultText += `<br>Note: The III (${chordMap[key].III[0]} or ${chordMap[key].III[1]}) is an outside chord that can introduce a Bluesy touch leading to the IV (${chordMap[key].IV}) chord, or a Spanish touch leading to the vi (${chordMap[key].vi}) chord.`;
+          }
+
+          resultText += " <br> Learn more about how to use these chords at ";
+          resultText +=
+            "<a href='https://toddmccool.github.io/chordprog124/' target='_blank'>toddMcCool chord progression master</a>";
+
+          document.getElementById("result").innerHTML = resultText;
+        } else if (possibleKeys.length > 1) {
+          document.getElementById("result").textContent =
+            "Possible Keys: " +
+            possibleKeys.join(", ") +
+            ". Add more chords to narrow down.";
+        } else {
+          document.getElementById("result").textContent =
+            "No matching key found!";
+        }
+      }
+    </script>
+  </body>
 </html>
