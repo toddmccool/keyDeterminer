@@ -448,12 +448,33 @@
 
         if (possibleKeys.length === 1) {
           let key = possibleKeys[0];
+
+          // Generate a string of chords with their Roman numerals
+          let chordsInKey = [
+            `I (${chordMap[key].I})`,
+            `ii (${chordMap[key].ii})`,
+            `iii (${
+              Array.isArray(chordMap[key].iii)
+                ? chordMap[key].iii.join("/")
+                : chordMap[key].iii
+            })`,
+            `IV (${chordMap[key].IV})`,
+            `V (${
+              Array.isArray(chordMap[key].V)
+                ? chordMap[key].V.join("/")
+                : chordMap[key].V
+            })`,
+            `vi (${chordMap[key].vi})`,
+            `vii (${chordMap[key].vii})`,
+          ].join(", ");
+
           let resultText =
             "Key: " +
             key +
             ". <br>Chords in this key are: " +
-            Object.values(chordMap[key]).join(", ") +
+            chordsInKey +
             ".";
+
           if (
             (selectedChords.includes(chordMap[key].III[0]) ||
               selectedChords.includes(chordMap[key].III[1])) &&
